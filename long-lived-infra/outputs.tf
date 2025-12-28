@@ -21,3 +21,7 @@ output "eks_cluster_security_group_id" {
 output "eks_oidc_provider_arn" {
   value = module.eks.oidc_provider_arn
 }
+
+output "acm_certificate_arn" {
+  value = module.acm.acm_certificate_arn
+}

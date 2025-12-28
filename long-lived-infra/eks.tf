@@ -38,3 +38,15 @@ resource "aws_iam_role_policy_attachment" "ebs_csi" {
   role       = each.value.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
+
+module "lb_controller" {
+  source = "./modules/lb_controller"
+
+  namespace       = "kube-system"
+  cluster_name    = module.eks.cluster_name      
+    oidc_provider = {
+      arn = module.eks.oidc_provider_arn
+      url = module.eks.oidc_provider
+  }
+  aws_loadbalancer_controller_image_repository = "public.ecr.aws/eks/aws-load-balancer-controller"
+}

@@ -13,8 +13,8 @@ resource "aws_security_group" "wandb_db" {
   vpc_id      = data.terraform_remote_state.platform.outputs.vpc_id
 
   ingress {
-    from_port       = 5432
-    to_port         = 5432
+    from_port       = 3306
+    to_port         = 3306
     protocol        = "tcp"
     security_groups = [
       data.terraform_remote_state.platform.outputs.eks_cluster_security_group_id
@@ -30,10 +30,10 @@ resource "aws_security_group" "wandb_db" {
 }
 
 resource "aws_db_instance" "wandb" {
-  identifier = "wandb-postgres"
+  identifier = "wandb-mysql"
 
-  engine         = "postgres"
-  engine_version = "15"
+  engine         = "mysql"
+  engine_version = "8.0"
 
   instance_class = "db.t3.medium"
   allocated_storage = 50

@@ -1,2 +1,5 @@
 aws_region = "eu-west-1"
-domain_name = "joshuasross.com"
+wandb_domain = "joshuasross.com"
+subdomain = "wandb"
+public_access = true
+external_dns = true

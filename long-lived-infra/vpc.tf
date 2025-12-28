@@ -14,6 +14,9 @@ module "vpc" {
 
   enable_dns_support   = true
   enable_dns_hostnames = true
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = "1"
+  }
 
   tags = {
     Project     = var.project

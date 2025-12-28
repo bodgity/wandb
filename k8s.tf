@@ -1,3 +1,4 @@
+
 resource "kubernetes_manifest" "wandb_server" {
   manifest = yamldecode(
     templatefile("${path.module}/wandb.yaml.tpl", {
@@ -6,6 +7,7 @@ resource "kubernetes_manifest" "wandb_server" {
       aws_region       = var.aws_region
       artifact_bucket = aws_s3_bucket.wandb_artifacts.bucket
       db_host          = aws_db_instance.wandb.address
+      acm_certificate_arn = data.terraform_remote_state.platform.outputs.acm_certificate_arn
     })
   )
 
