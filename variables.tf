@@ -1,42 +1,24 @@
+variable "aws_region" {
+  type        = string
+  description = "AWS region"
+}
+
+variable "wandb_domain" {
+  type        = string
+  description = "Public domain for W&B (e.g. wandb.example.com)"
+}
+
 variable "namespace" {
   type        = string
-  description = "Name prefix used for resources"
+  default     = "wandb-cr"
 }
 
-variable "domain_name" {
+variable "environment" {
   type        = string
-  description = "Domain name used to access instance."
+  description = "Environment name"
 }
 
-variable "subdomain" {
-  type        = string
-  default     = null
-  description = "Subdomain for accessing the Weights & Biases UI."
-}
-
-variable "license" {
-  type = string
-}
-
-variable "zone_id" {
-  type        = string
-  description = "Domain for creating the Weights & Biases subdomain on."
-}
-
-variable "allowed_inbound_cidr" {
- description = "CIDRs allowed to access wandb-server."
- nullable    = false
- type        = list(string)
-}
-
-variable "allowed_inbound_ipv6_cidr" {
- description = "CIDRs allowed to access wandb-server."
- nullable    = false
- type        = list(string)
-}
-
-variable "eks_cluster_version" {
- description = "EKS cluster kubernetes version"
- nullable    = false
- type        = string
+variable "db_password" {
+  type      = string
+  sensitive = true
 }
