@@ -9,6 +9,8 @@ metadata:
 spec:
   values:
     global:
+      auth:
+        enableAdminSignup: true
       host: ${wandb_domain}
       bucket:
         name: ${artifact_bucket}
