@@ -11,8 +11,6 @@ spec:
     path: "charts/wandb"
     helm:
       releaseName: wandb
-      valueFiles:
-        - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: wandb-cr
