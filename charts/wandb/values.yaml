@@ -173,3 +173,9 @@ mysql:
     # If you want to re-use an existing pv claim
     existingClaim:
     annotations: {}
+
+console:
+  install: true
+
+api:
+  enabled: true
