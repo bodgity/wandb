@@ -1,0 +1,17 @@
+{"time":"2025-12-29T16:48:49.120186Z","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
+{"time":"2025-12-29T16:48:49.339014Z","level":"ERROR","msg":"featurechecker: failed to load features, all will be disabled","error":"input:4:3: Cannot query field \"features\" on type \"ServerInfo\".\n"}
+{"time":"2025-12-29T16:48:49.339596Z","level":"INFO","msg":"stream: created new stream","id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.340034Z","level":"INFO","msg":"handler: started","stream_id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.340115Z","level":"INFO","msg":"writer: started","stream_id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.340225Z","level":"INFO","msg":"stream: started","id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.340422Z","level":"INFO","msg":"sender: started","stream_id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.344058Z","level":"WARN","msg":"runupserter: server does not expand metric globs but the x_server_side_expand_glob_metrics setting is set; ignoring"}
+{"time":"2025-12-29T16:48:49.3654Z","level":"ERROR","msg":"HTTP error","status":401,"method":"POST","url":"https://wandb.joshuasross.com/graphql"}
+{"time":"2025-12-29T16:48:49.365591Z","level":"ERROR","msg":"runupserter: failed to init run","error":"returned error 401: {\"data\":{\"upsertBucket\":null},\"errors\":[{\"message\":\"user is not logged in\",\"path\":[\"upsertBucket\"],\"extensions\":{\"code\":\"PERMISSION_ERROR\"}}]}"}
+{"time":"2025-12-29T16:48:49.385525Z","level":"INFO","msg":"stream: closing","id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.386744Z","level":"ERROR","msg":"sender: uploadConfigFile: runupserter: run not yet initialized"}
+{"time":"2025-12-29T16:48:49.438609Z","level":"ERROR","msg":"runfiles: runupserter: run not yet initialized"}
+{"time":"2025-12-29T16:48:49.43934Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-12-29T16:48:49.439553Z","level":"INFO","msg":"handler: closed","stream_id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.439609Z","level":"INFO","msg":"sender: closed","stream_id":"z5u7g9d4"}
+{"time":"2025-12-29T16:48:49.439616Z","level":"INFO","msg":"stream: closed","id":"z5u7g9d4"}

@@ -17,31 +17,3 @@ resource "helm_release" "argocd" {
   wait = false
 }
 
-resource "kubernetes_manifest" "argocd_wandb_app" {
-  manifest = {
-    apiVersion = "argoproj.io/v1alpha1"
-    kind       = "Application"
-    metadata = {
-      name      = "wandb"
-      namespace = helm_release.argocd.namespace
-    }
-    spec = {
-      project = "default"
-      source = {
-        repoURL        = "https://github.com/bodgity/wandb.git"
-        targetRevision = "official"
-        path           = "charts/operator"
-      }
-      destination = {
-        server    = "https://kubernetes.default.svc"
-        namespace = "wandb-cr"
-      }
-      syncPolicy = {
-        automated = {
-          prune = true
-          selfHeal = true
-        }
-      }
-    }
-  }
-}
