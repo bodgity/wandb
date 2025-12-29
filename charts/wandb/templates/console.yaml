@@ -15,7 +15,6 @@ data:
   RELEASE_NAME: "{{ $.Release.Name }}"
   RELEASE_NAMESPACE: "{{ $.Release.Namespace }}"
   PROMETHEUS_SERVER: "http://{{ $.Release.Name }}-prometheus-server"
-  BANNERS: {{ toJson .Values.global.banners | quote }}
   {{- if .Values.console.proxy }}
     {{- if .Values.console.proxy.httpProxy }}
   HTTP_PROXY: {{ .Values.console.proxy.httpProxy | quote }}
