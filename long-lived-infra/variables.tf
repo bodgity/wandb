@@ -8,6 +8,11 @@ variable "project" {
   description = "Project name"
 }
 
+variable "namespace" {
+  type       = string
+  default    = "wandb-cr"
+}
+
 variable "environment" {
   type        = string
   description = "Environment (dev, staging, prod)"

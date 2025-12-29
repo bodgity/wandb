@@ -13,7 +13,7 @@ module "eks" {
 
   cluster_addons = {
     coredns = {}
-    vpc-cni = {}
+    vpc-cni = {service_account_role_arn = aws_iam_role.oidc.arn}
     kube-proxy = {}
     aws-ebs-csi-driver = {}
   }
@@ -55,4 +55,60 @@ module "lb_controller" {
       url = module.eks.oidc_provider
   }
   aws_loadbalancer_controller_image_repository = "public.ecr.aws/eks/aws-load-balancer-controller"
+}
+
+# Weave worker authentication token
+resource "random_password" "weave_worker_auth" {
+  length  = 32
+  special = false
+}
+
+resource "aws_secretsmanager_secret" "weave_worker_auth" {
+  name                    = "${var.namespace}-weave-worker-auth"
+  recovery_window_in_days = 0
+}
+
+resource "aws_secretsmanager_secret_version" "weave_worker_auth" {
+  secret_id     = aws_secretsmanager_secret.weave_worker_auth.id
+  secret_string = random_password.weave_worker_auth.result
+}
+
+# IAM policy to allow reading the secret
+resource "aws_iam_policy" "weave_worker_auth_secret_reader" {
+  name        = "${var.namespace}-weave-worker-auth-secret-reader"
+  description = "Allow reading weave worker auth secret from Secrets Manager"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ]
+        Resource = aws_secretsmanager_secret.weave_worker_auth.arn
+      }
+    ]
+  })
+}
+
+# Attach the policy to the node role
+#resource "aws_iam_role_policy_attachment" "weave_worker_auth_secret_reader" {
+#  role       = module.eks.eks_managed_node_groups.iam_role_arn
+#  policy_arn = aws_iam_policy.weave_worker_auth_secret_reader.arn
+#}
+
+# Create Kubernetes secret with the token
+resource "kubernetes_secret" "weave_worker_auth" {
+  metadata {
+    name      = "weave-worker-auth"
+    namespace = var.namespace
+  }
+
+  binary_data = {
+    "key" = random_password.weave_worker_auth.result
+  }
+
+  depends_on = [module.eks]
 }

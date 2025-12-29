@@ -1,0 +1,284 @@
+replicaCount: 1
+
+image:
+  repository: wandb/controller
+  tag: latest
+  pullPolicy: Always
+  pullSecrets: []
+
+extraEnv: []
+role:
+  rules:
+    - apiGroups:
+        - ""
+      resources:
+        - configmaps
+        - persistentvolumeclaims
+        - secrets
+        - serviceaccounts
+        - services
+        - events
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - patch
+        - update
+        - watch
+    - apiGroups:
+        - ""
+      resources:
+        - endpoints
+        - ingresses
+        - nodes
+        - nodes/metrics
+        - nodes/spec
+        - nodes/stats
+        - nodes/proxy
+        - namespaces
+        - namespaces/status
+        - pods
+        - pods/log
+        - pods/status
+        - resourcequotas
+        - replicationcontrollers
+        - replicationcontrollers/status
+      verbs:
+        - get
+        - list
+        - watch
+    - apiGroups:
+        - apps
+      resources:
+        - deployments
+        - statefulsets
+        - daemonsets
+        - replicasets
+        - controllerrevisions
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - patch
+        - update
+        - watch
+    - apiGroups:
+        - apps
+      resources:
+        - deployments/status
+        - statefulsets/status
+        - daemonsets/status
+        - replicasets/status
+      verbs:
+        - get
+    - apiGroups:
+        - apps.wandb.com
+      resources:
+        - weightsandbiases
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - patch
+        - update
+        - watch
+    - apiGroups:
+        - apps.wandb.com
+      resources:
+        - weightsandbiases/finalizers
+      verbs:
+        - update
+    - apiGroups:
+        - apps.wandb.com
+      resources:
+        - weightsandbiases/status
+      verbs:
+        - get
+        - patch
+        - update
+    - apiGroups:
+        - autoscaling
+      resources:
+        - horizontalpodautoscalers
+      verbs:
+        - create
+        - delete
+        - get
+        - patch
+        - list
+        - update
+        - watch
+    - apiGroups:
+        - keda.sh
+      resources:
+        - scaledobjects
+      verbs:
+        - create
+        - delete
+        - get
+        - patch
+        - list
+        - update
+        - watch
+    - apiGroups:
+        - policy
+      resources:
+        - poddisruptionbudgets
+      verbs:
+        - create
+        - delete
+        - get
+        - patch
+        - list
+        - update
+        - watch
+    - apiGroups:
+        - batch
+      resources:
+        - cronjobs
+        - jobs
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - patch
+        - update
+        - watch
+    - apiGroups:
+        - events.k8s.io
+      resources:
+        - events
+      verbs:
+        - watch
+        - list
+    - apiGroups:
+        - extensions
+      resources:
+        - daemonsets
+        - deployments
+        - ingresses
+        - replicasets
+        - ingresses/status
+      verbs:
+        - get
+        - list
+        - watch
+    - apiGroups:
+        - networking.k8s.io
+      resources:
+        - ingresses
+        - networkpolicies
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - patch
+        - update
+        - watch
+    - apiGroups:
+        - networking.k8s.io
+      resources:
+        - ingresses/status
+      verbs:
+        - get
+        - list
+        - watch
+    - apiGroups:
+        - rbac.authorization.k8s.io
+      resources:
+        - roles
+        - rolebindings
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - update
+        - watch
+        - patch
+    - apiGroups:
+        - cloud.google.com
+      resources:
+        - backendconfigs
+      verbs:
+        - create
+        - delete
+        - get
+        - list
+        - update
+        - watch
+        - patch
+    - apiGroups:
+        - scheduling.k8s.io
+      resources:
+        - priorityclasses
+      verbs:
+        - get
+        - list
+        - watch
+        - create
+        - update
+        - patch
+        - delete
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 400m
+    memory: 512Mi
+
+podAnnotations: {}
+
+nameOverride: wandb
+fullnameOverride: ""
+
+manager:
+  debug:
+    enabled: true
+  serviceAccount:
+    create: true
+
+airgapped: false
+namespaceIsolation:
+  enabled: false
+  additionalNamespaces: []
+
+# To provide custom CA certificates, you can use either:
+# 1. `customCACerts`: a list of certificates provided directly within this Helm chart.
+# 2. `configMapName`: the name of a ConfigMap containing CA certificates.
+#
+# Important:
+# - If using a ConfigMap, each key in the ConfigMap must end with `.crt` (e.g., `my-cert.crt`).
+# - This naming convention is required for `update-ca-certificates` to parse and add each
+#   certificate to the system CA store on Ubuntu-based systems.
+
+# List of custom CA certificates in PEM format.
+customCACerts: []
+# Name of a ConfigMap containing additional .crt files for CA certificates.
+caCertsConfigMap: ""
+
+# Affinity rules for scheduling the Pod of this application.
+# https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity
+affinity: {}
+
+# Node selection constraints for scheduling Pods of this application.
+# https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+nodeSelector: {}
+
+# Taints to be tolerated by Pods of this application.
+# https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# Pod-level security context
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#podsecuritycontext-v1-core
+podSecurityContext: {}
+
+# Container-level security context
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#securitycontext-v1-core
+securityContext: {}
