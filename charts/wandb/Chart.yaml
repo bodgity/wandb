@@ -10,8 +10,8 @@ maintainers:
     email: support@wandb.com
     url: https://wandb.com
 dependencies:
-  - name: wandb-base
+  - name: wandb
     alias: console
     version: "0.11.6"
-    repository: file://../wandb-base
+    repository: file://.
     condition: console.install

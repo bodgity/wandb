@@ -109,7 +109,7 @@ ingress:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/35520322-58a2-48bb-a5f4-73aa31616adc
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/058b8578-45c1-48c6-b82a-937571a93b4f
   hosts:
     - host: wandb.joshuasross.com
       paths:
