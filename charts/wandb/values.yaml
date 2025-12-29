@@ -102,21 +102,26 @@ ldap:
       key:
 
 ingress:
-  enabled: ture
+  enabled: true
   className: "alb"
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/35520322-58a2-48bb-a5f4-73aa31616adc
   hosts:
-    - host: https://wandb.joshuasross.com
+    - host: wandb.joshuasross.com
       paths:
         - path: /
           pathType: ImplementationSpecific
         - path: /console
           pathType: ImplementationSpecific
+          backend:
+            service:
+              name: wand-console
+              port:
+                number: 8082
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
