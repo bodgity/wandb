@@ -1,0 +1,137 @@
+{{- if .Values.ingress.issuer.create }}
+{{- if eq .Values.ingress.issuer.provider "google" }}
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {{ .Release.Name }}-cert
+  labels:
+    {{- include "wandb.commonLabels" . | nindent 4 }}
+spec:
+  domains:
+  - {{ replace "https://" "" (replace "http://" "" .Values.global.host) }}
+{{- else }}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Release.Name }}-issuer
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "wandb.commonLabels" . | nindent 4 }}
+spec:
+  acme:
+    # The ACME server URL
+    server: {{ .Values.ingress.issuer.server | quote }}
+    email: {{ .Values.ingress.issuer.email | quote }}
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: {{ .Release.Name }}-acme-key
+    # Enable the HTTP-01 challenge provider
+    solvers:
+      - http01:
+          ingress:
+            class: {{ .Values.ingress.class }}
+{{- end }}
+{{- end }}
+{{- if .Values.ingress.install }}
+---
+{{- if .Values.ingress.create }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ default .Release.Name .Values.ingress.nameOverride }}
+  labels:
+    {{- include "wandb.commonLabels" . | nindent 4 }}
+    {{- if .Values.ingress.labels -}}
+    {{-   toYaml .Values.ingress.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.ingress.issuer.create }}
+    {{- if eq .Values.ingress.issuer.provider "google" }}
+    "networking.gke.io/managed-certificates" : "{{ .Release.Name }}-cert"
+    {{- else }}
+    "cert-manager.io/issuer": "{{ .Release.Name }}-issuer"
+    "cert-manager.io/acme-challenge-type": "http01"
+    {{- end }}
+    "kubernetes.io/ingress.allow-http" : "false"
+    {{- end }}
+
+    {{- if .Values.ingress.annotations -}}
+    {{-   toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.class }}
+  {{- $defaultHost := include "defaultHost" . -}}
+
+  {{- if .Values.ingress.issuer.create }}
+  {{- if ne .Values.ingress.issuer.provider "google" }}
+  tls:
+    - host: [{{ $defaultHost }}]
+      secretName: {{ .Release.Name }}-tls
+  {{- end }}
+  {{- else }}
+  tls: {{ toYaml .Values.ingress.tls | nindent 4 }}
+  {{- end }}
+
+  rules:
+  {{- $dot := . }}
+  {{- range concat (list $defaultHost) .Values.ingress.additionalHosts }}
+  - host: {{ . }}
+    http:
+      paths:
+      {{- include "IngressPath" $dot | nindent 6 }}
+      {{- if index $.Values "weave-trace" "install" }}
+      - pathType: Prefix
+        path: /traces
+        backend:
+          service:
+            name: {{ $.Release.Name }}-weave-trace
+            port:
+              number: 8722
+      {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+---
+{{- if and .Values.ingress.secondary .Values.ingress.secondary.create }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ default .Release.Name .Values.ingress.secondary.nameOverride }}
+  labels:
+    {{- include "wandb.commonLabels" . | nindent 4 }}
+    {{- if .Values.ingress.secondary.labels -}}
+    {{-   toYaml .Values.ingress.secondary.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.ingress.secondary.issuer.create }}
+    "cert-manager.io/issuer": "{{ .Release.Name }}-issuer"
+    "cert-manager.io/acme-challenge-type": "http01"
+    "kubernetes.io/ingress.allow-http" : "false"
+    {{- end }}
+
+    {{- if .Values.ingress.secondary.annotations -}}
+    {{-   toYaml .Values.ingress.secondary.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.secondary.class }}
+  {{- $defaultHost := include "defaultHost" . -}}
+
+  {{- if .Values.ingress.secondary.issuer.create }}
+  tls:
+    - host: [{{ $defaultHost }}]
+      secretName: {{ .Release.Name }}-tls
+  {{- else }}
+  tls: {{ toYaml .Values.ingress.secondary.tls | nindent 4 }}
+  {{- end }}
+
+  rules:
+  {{- $dot := . }}
+  {{- range concat (list $defaultHost) .Values.ingress.secondary.additionalHosts }}
+  - host: {{ . }}
+    http:
+      paths:
+      {{- include "IngressPath" $dot | nindent 6 }}
+  {{- end }}
+ {{- end }}

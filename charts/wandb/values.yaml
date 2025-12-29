@@ -142,7 +142,8 @@ mysql:
   database: wandb
   password: ""
   passwordSecret:
-
+    name: wandb-db
+    passwordKey: password
   command:
   image:
     pullPolicy: IfNotPresent

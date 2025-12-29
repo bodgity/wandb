@@ -1,0 +1,9 @@
+dependencies:
+- name: agent
+  repository: file://charts/agent
+  version: 0.1.0
+- name: agent
+  repository: file://charts/agent
+  version: 0.1.0
+digest: sha256:aec2f2ea977b40cd2acf83bbfdcb4ec2b8c31ed282412ee8ea8c0f0f588172fb
+generated: "2024-10-02T14:30:09.294656-07:00"

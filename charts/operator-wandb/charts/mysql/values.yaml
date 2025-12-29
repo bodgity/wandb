@@ -1,0 +1,54 @@
+enabled: true
+
+persistence:
+  size: 20Gi
+  # storageClassName: ""
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: mysql
+  tag: latest
+  pullPolicy: Always
+
+tolerations: []
+
+extraEnv: {}
+extraEnvFrom: {}
+
+common: {}
+
+service:
+  type: ClusterIP
+  annotations: {}
+  labels: {}
+
+pod:
+  labels: {}
+  annotations: {}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 999
+    runAsGroup: 0
+    fsGroup: 999
+    fsGroupChangePolicy: "OnRootMismatch"
+    seccompProfile:
+      type: ""
+
+container:
+  securityContext:
+    capabilities:
+      add: []
+      drop: []
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    privileged: false
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: 4000m
+    memory: 8Gi
