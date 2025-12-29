@@ -116,7 +116,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
         - path: /console
-          pathType: Preifx
+          pathType: ImplementationSpecific
           backend:
             service:
               name: wandb-console
