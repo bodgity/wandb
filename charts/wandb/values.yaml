@@ -21,7 +21,7 @@ bucketKmsKeyArn:
 # We use sendgrid.com by default to send emails, but you can specify your own smtp server
 smtpServer:
 # when setting up an ingress, set this to http://domain.com or https://domain.com
-host: http://localhost
+host: http://wandb.joshuasross.com
 # If using an external Redis instance
 redis:
 # If you aren't connected to an external bucket and want to mount a custom claim for minio
@@ -102,14 +102,17 @@ ldap:
       key:
 
 ingress:
-  enabled: false
-  className: ""
+  enabled: ture
+  className: "alb"
   annotations:
     {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/35520322-58a2-48bb-a5f4-73aa31616adc
   hosts:
-    - host: wandb.mycompany.net
+    - host: wandb.joshuasross.com
       paths:
         - path: /
           pathType: ImplementationSpecific
