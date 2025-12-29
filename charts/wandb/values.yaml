@@ -140,7 +140,9 @@ mysql:
   host: wandb-mysql.choe02qeeova.eu-west-1.rds.amazonaws.com
   user: wandb
   database: wandb
-  password: test12345
+  password: ""
+  passwordSecret:
+  
   command:
   image:
     pullPolicy: IfNotPresent
