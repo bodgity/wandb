@@ -30,7 +30,7 @@ resource "kubernetes_manifest" "argocd_wandb_app" {
       source = {
         repoURL        = "https://github.com/bodgity/wandb.git"
         targetRevision = "official"
-        path           = "charts/"
+        path           = "charts/operator"
       }
       destination = {
         server    = "https://kubernetes.default.svc"
