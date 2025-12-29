@@ -111,7 +111,7 @@ ingress:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/35520322-58a2-48bb-a5f4-73aa31616adc
   hosts:
-    - host: wandb.joshuasross.com
+    - host: https://wandb.joshuasross.com
       paths:
         - path: /
           pathType: ImplementationSpecific
