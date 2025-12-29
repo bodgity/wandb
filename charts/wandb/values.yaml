@@ -117,11 +117,7 @@ ingress:
           pathType: ImplementationSpecific
         - path: /console
           pathType: ImplementationSpecific
-          backend:
-            service:
-              name: wandb-console
-              port:
-                number: 8082
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
