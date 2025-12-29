@@ -15,8 +15,3 @@ dependencies:
     version: "0.11.6"
     repository: file://charts/wandb-base
     condition: console.install
-  - name: wandb-base
-    alias: api
-    condition: api.enabled
-    repository: file://charts/wandb-base
-    version: "0.11.6"
