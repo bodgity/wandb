@@ -42,8 +42,8 @@ spec:
   {{- end }}
   rules:
   {{- $dot := . }}
-  {{- range concat (list $defaultHost) .Values.ingress.secondary.additionalHosts }}
-  - host: {{ . }}
+  {{- range .Values.ingress.hosts }}
+  - host: {{ .host | quote  }}
     http:
       paths:
       {{- include "IngressPath" $dot | nindent 6 }}
