@@ -21,7 +21,7 @@ bucketKmsKeyArn:
 # We use sendgrid.com by default to send emails, but you can specify your own smtp server
 smtpServer:
 # when setting up an ingress, set this to http://domain.com or https://domain.com
-host: wandb.joshuasross.com
+host: https://wandb.joshuasross.com
 # If using an external Redis instance
 redis:
 # If you aren't connected to an external bucket and want to mount a custom claim for minio
@@ -119,7 +119,7 @@ ingress:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: wand-console
+              name: wandb-console
               port:
                 number: 8082
   tls: []
