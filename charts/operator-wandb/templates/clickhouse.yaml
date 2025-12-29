@@ -1,0 +1,21 @@
+{{- if not (or .Values.global.clickhouse.passwordSecret.name (kindIs "map" .Values.global.clickhouse.password)) }}
+{{- $secretName := (include "wandb.clickhouse.passwordSecret" .)  }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace $secretName) }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $secretName }}
+  annotations:
+    "helm.sh/resource-policy": "keep"
+    "reflector.v1.k8s.emberstack.com/reflection-allowed": "true"
+    "reflector.v1.k8s.emberstack.com/reflection-auto-enabled": "true"
+    "reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces": "{{ .Release.Name }}-.*"
+  labels:
+    {{- include "wandb.commonLabels" . | nindent 4 }}
+data:
+{{- if $secret }}
+  CLICKHOUSE_PASSWORD: {{ default ($secret.data.CLICKHOUSE_PASSWORD) (.Values.global.clickhouse.password | b64enc) }}
+{{- else }}
+  CLICKHOUSE_PASSWORD: {{ default (randAlphaNum 64) .Values.global.clickhouse.password | b64enc }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "wandb.fullname" . }}-test-connection"
+  labels:
+    {{- include "wandb.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wandb-verify
+      image: python:3.12
+      env:
+        - name: WANDB_BASE_URL
+          value: "http://{{ .Release.Name }}-nginx:8080"
+        - name: WANDB_API_KEY
+          value: {{ dig "env" "GLOBAL_ADMIN_API_KEY" "" .Values.global | quote }}
+      command:
+        - sh
+        - -c
+        - "pip install wandb && wandb verify"
+  restartPolicy: Never
