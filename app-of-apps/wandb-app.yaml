@@ -11,7 +11,7 @@ spec:
     path: "charts/operator-wandb"       # look for multiple apps in this folder
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: wandb       # can be same as parent or different
+    namespace: wandb-cr       # can be same as parent or different
   syncPolicy:
     automated:
       prune: true
