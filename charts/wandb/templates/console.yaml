@@ -12,7 +12,6 @@ data:
   BUCKET_ACCESS_IDENTITY: "unknown"
   {{- end }}
   AUTH_SERVICE: "{{ .Release.Name }}-app:8080"
-  OPERATOR_NAMESPACE: "{{ .Values.global.operator.namespace }}"
   RELEASE_NAME: "{{ $.Release.Name }}"
   RELEASE_NAMESPACE: "{{ $.Release.Namespace }}"
   PROMETHEUS_SERVER: "http://{{ $.Release.Name }}-prometheus-server"
