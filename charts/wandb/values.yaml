@@ -135,7 +135,7 @@ affinity: {}
 
 mysql:
   # Set this to false if you want to bring your own mysql
-  managed: true
+  managed: false
   # If you have an existing mysql host, specify the host, user, and password here
   host: wandb-mysql.choe02qeeova.eu-west-1.rds.amazonaws.com
   user: wandb
