@@ -131,14 +131,11 @@ affinity: {}
 
 mysql:
   # Set this to false if you want to bring your own mysql
-  managed: false
+  managed: true
   # If you have an existing mysql host, specify the host, user, and password here
   host: wandb-mysql.choe02qeeova.eu-west-1.rds.amazonaws.com
   user: wandb
-  passwordSecret:
-    name: wandb-db
-    passwordKey: password
-  database: wandb
+  password: test12345
   command:
   image:
     pullPolicy: IfNotPresent
