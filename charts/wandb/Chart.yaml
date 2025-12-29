@@ -13,5 +13,5 @@ dependencies:
   - name: wandb-base
     alias: console
     version: "0.11.6"
-    repository: file://wandb-base
+    repository: file://../wandb-base
     condition: console.install

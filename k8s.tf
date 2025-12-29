@@ -18,12 +18,18 @@
 #  ]
 #}
 
+resource "kubernetes_namespace" "wandb-cr" {
+  metadata {
+
+    name = var.namespace
+  }
+}
+
 resource "kubernetes_secret" "wandb_db" {
   metadata {
     name      = "wandb-db"
     namespace = var.namespace
   }
-
   data = {
     password = var.db_password
   }
