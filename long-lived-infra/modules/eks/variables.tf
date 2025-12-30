@@ -20,3 +20,7 @@ variable "vpc_id" {
 variable "private_subnet_ids" {
   type       = list(string)
 }
+
+variable "artifacts_bucket_arn" {
+  type = "string"
+}

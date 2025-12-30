@@ -23,10 +23,13 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
+variable "zone_id" {
+  type        = string
+}
+
 variable "wandb_domain" {
   type        = string
   description = "Route53 hosted zone domain"
-  default     = ""
 }
 
 variable "external_dns" {
@@ -49,7 +52,7 @@ variable "public_access" {
 
 variable "subdomain" {
   type        = string
-  default     = ""
+  default     = null
   description = "Subdomain for accessing the Weights & Biases UI. Default creates record at Route53 Route."
 }
 
@@ -62,4 +65,8 @@ variable "acm_certificate_arn" {
 variable "db_password" {
   type      = string
   sensitive = true
+}
+
+variable "artifacts_bucket_arn" {
+  type = "string"
 }

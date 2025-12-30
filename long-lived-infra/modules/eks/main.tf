@@ -33,17 +33,7 @@ module "eks" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "ebs_csi" {
-  for_each   = module.eks.eks_managed_node_groups
-  role       = each.value.iam_role_name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-}
 
-resource "aws_iam_role_policy_attachment" "s3" {
-  for_each   = module.eks.eks_managed_node_groups
-  role       = each.value.iam_role_name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-}
 
 
 

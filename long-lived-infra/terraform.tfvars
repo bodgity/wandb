@@ -6,3 +6,4 @@ external_dns = true
 db_password = "test12345"
 environment = "prod"
 namespace = "wandb-cr"
+zone_id = "Z08196503Q5CK1FJKM3DZ"

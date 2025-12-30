@@ -18,7 +18,7 @@ variable "public_access" {
 
 variable "subdomain" {
   type        = string
-  default     = ""
+  default     = null
   description = "Subdomain for accessing the Weights & Biases UI. Default creates record at Route53 Route."
 }
 
@@ -31,5 +31,8 @@ variable "acm_certificate_arn" {
 variable "wandb_domain" {
   type        = string
   description = "Route53 hosted zone domain"
-  default     = ""
+}
+
+variable "zone_id" {
+  type        = string
 }

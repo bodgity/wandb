@@ -26,11 +26,15 @@ module "eks" {
   environment = var.environment
   vpc_id = module.networking.vpc_id
   private_subnet_ids = module.networking.private_subnet_ids
+  artifacts_bucket_arn = var.artifacts_bucket_arn
   
 }
 
 module "acm" {
   source = "./modules/acm"
+
+  zone_id = var.zone_id
+  wandb_domain = var.wandb_domain
 }
 
 module "lb_controller" {
