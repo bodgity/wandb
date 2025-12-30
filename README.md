@@ -1,13 +1,16 @@
-# W&B Terraform Infrastructure
+# W&B Deployment
+
+**Summary:** This is a simple deployment designed to mimic an example of a customer deployment of **Weights & Biases (W&B)** on AWS. It provisions core infrastructure using Terraform, deploys W&B via EKS and ArgoCD, and demonstrates how W&B components interact in a production-like environment.
+
 
 This repository contains Terraform configurations for deploying Weights & Biases (W&B) on AWS using EKS.
 
 ## Architecture
 
-- **bootstrap-state/**: Creates S3 bucket for Terraform remote state storage.
-- **long-lived-infra/**: Provisions core infrastructure (VPC, EKS, ACM, RDS, S3, Load Balancer Controller, ArgoCD).
-- **app-of-apps/**: ArgoCD Application definitions that orchestrate deployment of W&B components.
-- **charts/**: Helm charts and Kubernetes manifests for W&B operator and server.
+- **bootstrap-state**: Creates S3 bucket for Terraform remote state storage.
+- **long-lived-infra**: Provisions core infrastructure (VPC, EKS, ACM, RDS, S3, Load Balancer Controller, ArgoCD).
+- **app-of-apps**: ArgoCD Application definitions that orchestrate deployment of W&B components.
+- **charts**: Helm charts and Kubernetes manifests for W&B operator and server.
 
 ## Prerequisites
 
@@ -74,11 +77,3 @@ See `variables.tf` files in each directory for required and optional variables.
 - `modules/networking/`: VPC, subnets, and security groups
 - `modules/rds/`: RDS MySQL instance with security groups
 - `modules/storage/`: S3 buckets for W&B artifacts and backups
-
-## Best Practices
-
-- Uses Terraform modules for reusability
-- Implements remote state with locking
-- Validates input variables
-- Tags resources consistently
-- Separates environments using workspaces

@@ -1,5 +1,3 @@
-
-
 resource "kubernetes_namespace" "wandb-cr" {
   metadata {
 
