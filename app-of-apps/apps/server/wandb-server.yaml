@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wandb-app
+  name: wandb-server
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
     repoURL: "https://github.com/bodgity/wandb.git"
-    targetRevision: "official"
-    path: "charts/wandb"
-    helm:
-      releaseName: wandb
+    targetRevision: official
+    path: app-of-apps/apps/server
+    directory:
+      recurse: true
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: https://kubernetes.default.svc
     namespace: wandb-cr
   syncPolicy:
     automated:

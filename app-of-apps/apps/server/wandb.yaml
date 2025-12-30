@@ -1,0 +1,35 @@
+apiVersion: apps.wandb.com/v1
+kind: WeightsAndBiases
+metadata:
+  labels:
+    app.kubernetes.io/name: weightsandbiases
+    app.kubernetes.io/instance: wandb
+  name: wandb
+  namespace: wandb-cr
+spec:
+  values:
+    global:
+      host: https://wandb.joshuasross.com
+      bucket:
+        name: wandb-artifacts-prod-joshross
+        provider: s3
+        region: eu-west-1
+      mysql:
+        database: wandb
+        host: wandb-mysql.choe02qeeova.eu-west-1.rds.amazonaws.com
+        name: wandb
+        passwordSecret:
+          name: wandb-db
+          passwordKey: password
+        port: 3306
+        user: wandb
+      license: eyJhbGciOiJSUzI1NiIsImtpZCI6InUzaHgyQjQyQWhEUXM1M0xQY09yNnZhaTdoSlduYnF1bTRZTlZWd1VwSWM9In0.eyJjb25jdXJyZW50QWdlbnRzIjoxMCwidHJpYWwiOnRydWUsIm1heFN0b3JhZ2VHYiI6MTAwMDAwMCwibWF4VGVhbXMiOjUwLCJtYXhVc2VycyI6MTAwLCJtYXhWaWV3T25seVVzZXJzIjowLCJtYXhSZWdpc3RlcmVkTW9kZWxzIjo1LCJleHBpcmVzQXQiOiIyMDI2LTAxLTI3VDIyOjMzOjA2LjI4NFoiLCJkZXBsb3ltZW50SWQiOiI1ZWNjYjZkZC1jNDY2LTQxZmUtOGEzZC05YWQ2MzcyOWQ1MmIiLCJmbGFncyI6WyJOT1RJRklDQVRJT05TIiwic2xhY2siLCJub3RpZmljYXRpb25zIiwiU0NBTEFCTEUiLCJteXNxbCIsInMzIiwicmVkaXMiLCJNQU5BR0VNRU5UIiwib3JnX2Rhc2giLCJhdXRoMCIsImNvbGxlY3RfYXVkaXRfbG9ncyIsInJiYWMiXSwiY29udHJhY3RTdGFydERhdGUiOiIyMDI1LTEyLTI4VDIyOjMzOjA2LjI4NFoiLCJhY2Nlc3NLZXkiOiJjZDM4YWFmOS0zMWUxLTQ5NzItODQyYi00ZTJjN2Y0ZmFmMTIiLCJzZWF0cyI6MTAwLCJ2aWV3T25seVNlYXRzIjowLCJ0ZWFtcyI6NTAsInJlZ2lzdGVyZWRNb2RlbHMiOjUsInN0b3JhZ2VHaWdzIjoxMDAwMDAwLCJleHAiOjE3Njk1NTMxODYsIndlYXZlTGltaXRzIjp7IndlYXZlTGltaXRCeXRlcyI6bnVsbCwid2VhdmVPdmVyYWdlQ29zdENlbnRzIjowLCJ3ZWF2ZU92ZXJhZ2VVbml0IjoiTUIifX0.cCJHm00u7hs_kP4NoDERV_U06Zpe1FefsoYXuGrmFEZoHXSbFlizwWAiBFCPuvC60lvfgb5HVUjzH_ICR62UhrZ7AbV55gJI_ficS7JpQd5srIgqQj-cDWHoFq7fqOYHW0JAJ5WxUmR5b5Z7fKeoisq64lsIfqhutmOcbZy6z9qoOtrarMdfxOu_ZdjnjJ0ScbpA2Shxl7kq-NnaTin2BoWGG7SHviPOHsgsig89inuxTDom8YhrRsjeVGru5frlc45lUwg_ZZ1roGCwpMT3uZOAYPFzke1GgccQ8HYQcUBFt7fqIiXbdEyYuQZCnXgADaokU2hTL8x6hYX9syY1IQ
+    ingress:
+      class: "alb"
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: alb
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/target-type: ip
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+        alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/879924cc-4e6b-4df8-b6f5-22a512be82d5
