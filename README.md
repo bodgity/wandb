@@ -38,6 +38,7 @@ This repository contains Terraform configurations for deploying Weights & Biases
 3. **Deploy W&B via ArgoCD**:
    ```bash
    ./tf-to-yaml.sh # Converts Terraform outputs to W&B server manifest
+   aws eks update-kubeconfig --region <region> --name <cluster-name>
    kubectl apply -f ../app-of-apps/wandb-app.yaml
    ```
 

@@ -32,4 +32,4 @@ spec:
         alb.ingress.kubernetes.io/scheme: internet-facing
         alb.ingress.kubernetes.io/target-type: ip
         alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
-        alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/cda7287d-1b26-45a5-b98d-e5bef1a30e24
+        alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-west-1:733153951702:certificate/b0389497-2a1b-4297-980e-ecbbb47464a3"
