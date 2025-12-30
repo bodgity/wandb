@@ -67,6 +67,6 @@ variable "db_password" {
   sensitive = true
 }
 
-variable "artifacts_bucket_arn" {
-  type = "string"
+variable "wandb_license" {
+  type = string
 }

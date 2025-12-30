@@ -22,5 +22,5 @@ variable "private_subnet_ids" {
 }
 
 variable "artifacts_bucket_arn" {
-  type = "string"
+  type = string
 }

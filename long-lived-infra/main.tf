@@ -26,7 +26,7 @@ module "eks" {
   environment = var.environment
   vpc_id = module.networking.vpc_id
   private_subnet_ids = module.networking.private_subnet_ids
-  artifacts_bucket_arn = var.artifacts_bucket_arn
+  artifacts_bucket_arn = module.storage.artifacts_bucket_arn
   
 }
 
@@ -35,6 +35,10 @@ module "acm" {
 
   zone_id = var.zone_id
   wandb_domain = var.wandb_domain
+  subdomain = var.subdomain
+  public_access = var.public_access
+  external_dns = var.external_dns
+  acm_certificate_arn = var.acm_certificate_arn
 }
 
 module "lb_controller" {
@@ -47,6 +51,8 @@ module "lb_controller" {
       url = module.eks.eks_oidc_provider
   }
   aws_loadbalancer_controller_image_repository = "public.ecr.aws/eks/aws-load-balancer-controller"
+
+  depends_on = [ module.eks ]
 }
 
 module "argocd" {

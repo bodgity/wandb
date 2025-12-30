@@ -1,4 +1,5 @@
-### IAM policy and role for vpc-cni
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "oidc_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -68,4 +69,21 @@ resource "aws_iam_role_policy_attachment" "s3" {
   for_each   = module.eks.eks_managed_node_groups
   role       = each.value.iam_role_name
   policy_arn = aws_iam_policy.wandb_s3.arn
+}
+
+resource "aws_eks_access_entry" "terraform_admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = data.aws_caller_identity.current.arn
+}
+
+
+resource "aws_eks_access_policy_association" "terraform_admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = data.aws_caller_identity.current.arn
+
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
 }
