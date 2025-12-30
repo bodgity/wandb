@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: "https://github.com/bodgity/wandb.git"
     targetRevision: official
-    path: app-of-apps/apps/server
+    path: charts/manifest
     directory:
       recurse: true
   destination:
