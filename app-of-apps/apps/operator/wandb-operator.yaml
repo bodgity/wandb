@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wandb-crd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/bodgity/wandb.git"
+    targetRevision: "official"
+    path: "charts/operator"
+    helm:
+      releaseName: wandb-crd
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: wandb-cr     # namespace where CRDs should be installed
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
