@@ -13,7 +13,7 @@ spec:
         enabled: true
         # Automatically provision a user if SSO auth succeeds
         autoProvision: true
-        issuer: dev-fmel0e0uo38dfwm2.us.auth0.com
+        issuer: https://dev-fmel0e0uo38dfwm2.us.auth0.com
         # Can be implicit or pkce
         method: pkce
         clientId: 5xTOZpGO7TpMAFnHJt1smBKL85efWVxj
