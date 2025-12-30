@@ -20,7 +20,7 @@ dependencies:
     version: "0.11.6"
     repository: file://charts/wandb-base
     condition: weave.install
-    - name: wandb-base
+  - name: wandb-base
     alias: parquet
     version: "0.11.6"
     repository: file://charts/wandb-base
