@@ -10,7 +10,7 @@
   subPath: redis_ca.pem
 {{- end -}}
 
-{{- define "wandb.caCertsVolumes" -}}
+
 - name: wandb-ca-certs-root
   emptyDir: {}
 - name: wandb-ca-certs
@@ -27,7 +27,7 @@
       - key: REDIS_CA_CERT
         path: redis_ca.pem
     optional: true
-{{- end -}}
+
 
 {{- define "wandb.gcsFuseVolumeMounts" }}
 {{- if .Values.fuse.enabled }}
