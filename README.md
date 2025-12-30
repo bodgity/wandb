@@ -5,8 +5,9 @@ This repository contains Terraform configurations for deploying Weights & Biases
 ## Architecture
 
 - **bootstrap-state/**: Creates S3 bucket for Terraform remote state storage.
-- **long-lived-infra/**: Provisions core infrastructure (VPC, EKS, ACM, Load Balancer Controller).
-- **Root directory**: Deploys W&B application components (RDS, S3, Helm charts, Kubernetes manifests).
+- **long-lived-infra/**: Provisions core infrastructure (VPC, EKS, ACM, RDS, S3, Load Balancer Controller, ArgoCD).
+- **app-of-apps/**: ArgoCD Application definitions that orchestrate deployment of W&B components.
+- **charts/**: Helm charts and Kubernetes manifests for W&B operator and server.
 
 ## Prerequisites
 
@@ -30,11 +31,28 @@ This repository contains Terraform configurations for deploying Weights & Biases
    terraform apply
    ```
 
-3. **Deploy W&B application**:
+3. **Deploy W&B via ArgoCD**:
    ```bash
-   terraform init
-   terraform apply
+   kubectl apply -f app-of-apps/wandb-app.yaml
    ```
+
+## Accessing Deployed Services
+
+Once deployed, you can access the services using port-forwarding for local development:
+
+- **ArgoCD UI**:
+  ```bash
+  kubectl port-forward svc/argocd-server -n argocd 8080:443
+  ```
+  Access at: https://localhost:8080
+
+- **W&B Server** (if needed for local access):
+  ```bash
+  kubectl port-forward svc/wandb-service -n wandb-cr 8081:80
+  ```
+  Access at: http://localhost:8081
+
+For production access, W&B is available via the configured domain (e.g., https://wandb.joshuasross.com) through the ALB ingress.
 
 ## Variables
 
@@ -42,8 +60,13 @@ See `variables.tf` files in each directory for required and optional variables.
 
 ## Modules
 
-- `modules/database/`: RDS MySQL instance with security groups
+- `modules/acm/`: AWS Certificate Manager certificates and DNS validation
+- `modules/argocd/`: ArgoCD installation and configuration
+- `modules/eks/`: EKS cluster, node groups, and IAM roles
 - `modules/lb_controller/`: AWS Load Balancer Controller for EKS
+- `modules/networking/`: VPC, subnets, and security groups
+- `modules/rds/`: RDS MySQL instance with security groups
+- `modules/storage/`: S3 buckets for W&B artifacts and backups
 
 ## Security
 

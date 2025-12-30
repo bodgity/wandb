@@ -33,13 +33,3 @@ spec:
         alb.ingress.kubernetes.io/target-type: ip
         alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
         alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:733153951702:certificate/879924cc-4e6b-4df8-b6f5-22a512be82d5
-    sso:
-      enabled: true
-      # Automatically provision a user if SSO auth succeeds
-      autoProvision: true
-      issuer: https://dev-fmel0e0uo38dfwm2.us.auth0.com
-      # Can be implicit or pkce
-      method: pkce
-      clientId: 5xTOZpGO7TpMAFnHJt1smBKL85efWVxj
-      # Optional, only if your IDP requires it
-      clientSecret: RXGPFXj1RmZDknnPDpelbH0GZLT5yQzTkhpuYR_Ucn8YV-mdDZfES4CqPanki88b

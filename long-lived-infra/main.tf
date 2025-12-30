@@ -47,6 +47,8 @@ module "lb_controller" {
 
 module "argocd" {
   source = "./modules/argocd"
+
+  depends_on = [ module.lb_controller ]
 }
 
 module "networking" {
