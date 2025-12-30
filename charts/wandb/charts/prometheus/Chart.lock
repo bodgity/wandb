@@ -1,0 +1,12 @@
+dependencies:
+- name: redis-exporter
+  repository: file://charts/redis-exporter
+  version: 0.1.0
+- name: mysql-exporter
+  repository: file://charts/mysql-exporter
+  version: 0.1.0
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 24.5.0
+digest: sha256:656620daff26192f9edcf998ebb43a0fbb7e307936795649f24ec578fd0e1bcf
+generated: "2024-03-19T11:04:25.960864-05:00"

@@ -15,3 +15,25 @@ dependencies:
     version: "0.11.6"
     repository: file://charts/wandb-base
     condition: console.install
+  - name: wandb-base
+    alias: weave
+    version: "0.11.6"
+    repository: file://charts/wandb-base
+    condition: weave.install
+    - name: wandb-base
+    alias: parquet
+    version: "0.11.6"
+    repository: file://charts/wandb-base
+    condition: parquet.install
+  - name: mysql
+    version: "*.*.*"
+    repository: file://charts/mysql
+    condition: mysql.install
+  - name: prometheus
+    version: "*.*.*"
+    repository: file://charts/prometheus
+    condition: prometheus.install
+  - name: redis
+    version: "18.*.*"
+    repository: file://charts/redis
+    condition: redis.install
