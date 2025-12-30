@@ -9,6 +9,10 @@ metadata:
 spec:
   values:
     global:
+      auth:
+        oidc:
+          clientId: "Ov23li9nfzVTZayCgCqK"
+          secret: "e77a1a2fbef68b0a8db7592fe215d89c8964b980"
       host: https://wandb.joshuasross.com
       bucket:
         name: wandb-artifacts-prod-joshross
