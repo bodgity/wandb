@@ -10,6 +10,7 @@ spec:
   values:
     global:
       host: https://wandb.joshuasross.com
+      storageClass: gp2
       bucket:
         name: wandb-artifacts-prod-joshross
         provider: s3
