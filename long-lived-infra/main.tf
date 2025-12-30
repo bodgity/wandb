@@ -17,6 +17,27 @@ resource "kubernetes_secret" "wandb_db" {
   depends_on = [ module.eks ]
 }
 
+resource "kubernetes_storage_class" "gp3_default" {
+  metadata {
+    name = "gp3"
+    annotations = {
+      "storageclass.kubernetes.io/is-default-class" = "true"
+    }
+  }
+
+  storage_provisioner  = "ebs.csi.aws.com"
+  volume_binding_mode  = "WaitForFirstConsumer"
+  reclaim_policy       = "Delete"
+
+  parameters = {
+    type          = "gp3"
+    fsType        = "ext4"
+    encrypted     = "true"
+  }
+  depends_on = [ module.eks ]
+}
+
+
 module "eks" {
   source = "./modules/eks"
 
