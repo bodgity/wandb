@@ -9,10 +9,16 @@ metadata:
 spec:
   values:
     global:
-      oauth:
-        github:
-          clientId: "Ov23li9nfzVTZayCgCqK"
-          clientSecret: "e77a1a2fbef68b0a8db7592fe215d89c8964b980"
+      sso:
+        enabled: true
+        # Automatically provision a user if SSO auth succeeds
+        autoProvision: true
+        issuer: dev-fmel0e0uo38dfwm2.us.auth0.com
+        # Can be implicit or pkce
+        method: pkce
+        clientId: 5xTOZpGO7TpMAFnHJt1smBKL85efWVxj
+        # Optional, only if your IDP requires it
+        clientSecret: RXGPFXj1RmZDknnPDpelbH0GZLT5yQzTkhpuYR_Ucn8YV-mdDZfES4CqPanki88b
       host: https://wandb.joshuasross.com
       bucket:
         name: wandb-artifacts-prod-joshross
