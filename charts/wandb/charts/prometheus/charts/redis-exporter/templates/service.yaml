@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: {{ include "redis-exporter.fullname" . }}
   labels:
-    {{- include "wandb.commonLabels" . | nindent 4 }}
     {{- include "redis-exporter.labels" . | nindent 4 }}
     {{- include "redis-exporter.commonLabels" . | nindent 4 }}
     {{- if .Values.service.labels -}}
