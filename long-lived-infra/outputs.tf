@@ -29,3 +29,11 @@ output "eks_oidc_provider_arn" {
 output "acm_certificate_arn" {
   value = module.acm.acm_certificate_arn
 }
+
+output "artifacts_bucket"{
+    value = module.storage.artifacts_bucket
+}
+
+output "db_host" {
+    value = module.rds.db_host
+}
