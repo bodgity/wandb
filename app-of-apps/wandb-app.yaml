@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/bodgity/wandb.git"
-    targetRevision: "official"
+    targetRevision: HEAD
     path: "app-of-apps/apps"
     directory:
       recurse: true          # look for multiple apps in this folder
