@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/bodgity/wandb.git"
-    targetRevision: "official"
+    targetRevision: HEAD
     path: "charts/operator"
     helm:
       releaseName: wandb-crd
