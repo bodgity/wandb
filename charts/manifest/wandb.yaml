@@ -10,7 +10,7 @@ spec:
   values:
     global:
       extraEnv:
-      LOCAL_RESTORE=true
+        LOCAL_RESTORE=true
       host: "http://joshross.wandb.ml"
       bucket:
         name: "wandb-artifacts-test-joshross"
