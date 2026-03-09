@@ -9,13 +9,13 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/bodgity/wandb.git"
-    targetRevision: official
+    targetRevision: HEAD
     path: charts/manifest
     directory:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: wandb-cr
+    namespace: wandb
   syncPolicy:
     automated:
       prune: true
