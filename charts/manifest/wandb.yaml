@@ -10,6 +10,7 @@ spec:
   values:
     global:
       host: "http://joshross.wandb.ml"
+      redis: "master.wandb-cr-rep-group.c641cv.euw1.cache.amazonaws.com"
       bucket:
         name: "wandb-artifacts-test-joshross"
         provider: s3
