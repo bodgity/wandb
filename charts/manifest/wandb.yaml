@@ -9,7 +9,7 @@ metadata:
 spec:
   values:
     global:
-      host: "https://joshross.wandb.ml"
+      host: "http://joshross.wandb.ml"
       bucket:
         name: "wandb-artifacts-test-joshross"
         provider: s3
